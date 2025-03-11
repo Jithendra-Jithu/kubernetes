@@ -3,19 +3,18 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/user/repo.git'
+                git 'https://github.com/Jithendra-Jithu/kubernetes.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myapp:latest .'
+                sh 'docker build -t jithu145/kubernetes:latest .'
             }
         }
         stage('Push to Docker Hub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-cred', url: '']) {
-                    sh 'docker tag myapp:latest user/myapp:latest'
-                    sh 'docker push user/myapp:latest'
+                withDockerRegistry([credentialsId: 'docker-creds', url: '']) {
+                    sh 'docker push jithu145/kubernetes:latest'
                 }
             }
         }
