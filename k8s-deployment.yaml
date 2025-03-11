@@ -16,7 +16,7 @@ spec:
         - name: docker-hub-secret
       containers:
         - name: flask-app
-          image: kpkm25/flask-ci-cd:latest
+          image: jithu145/flask-ci-cd:latest
           ports:
             - containerPort: 5000
 ---
