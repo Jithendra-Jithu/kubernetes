@@ -13,14 +13,16 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-creds', url: '']) {
+                withDockerRegistry([credentialsId: 'docker-creds']) {
                     sh 'docker push jithu145/kubernetes:latest'
                 }
             }
         }
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s-deployment.yaml'
+                withCredentials([file(credentialsId: 'kubeconfig-creds', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f k8s-deployment.yaml'
+                }
             }
         }
     }
